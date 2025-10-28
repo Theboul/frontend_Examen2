@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { GestionService } from "../../features/Gestion/services/gestionService";
 
-
 export default function GestionTable({ refresh }: { refresh: boolean }) {
   const [gestiones, setGestiones] = useState<any[]>([]);
 
@@ -30,14 +29,17 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
 
   return (
     <div className="bg-white shadow-md rounded-xl p-4 mt-6 w-full">
-      <h2 className="text-blue-800 font-semibold mb-3 text-center sm:text-left">
+      <h2
+        className="font-semibold mb-3 text-center sm:text-left"
+        style={{ color: "#2A3964" }}
+      >
         Gestiones Registradas
       </h2>
 
       {/* 🧩 Vista tipo tabla para pantallas medianas y grandes */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-sm text-center border">
-          <thead className="bg-blue-700 text-white">
+          <thead style={{ backgroundColor: "#2A3964", color: "#ffffff" }}>
             <tr>
               <th className="py-2 px-3">Año</th>
               <th>Semestre</th>
@@ -52,7 +54,7 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
               gestiones.map((g) => (
                 <tr
                   key={g.id_gestion}
-                  className="border-b hover:bg-sky-50 text-gray-700"
+                  className="border-b hover:bg-gray-100 text-gray-700"
                 >
                   <td className="py-2">{g.anio}</td>
                   <td>{g.semestre}</td>
@@ -70,13 +72,15 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
                   <td className="space-x-2">
                     <button
                       onClick={() => activar(g.id_gestion)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700"
+                      className="text-white px-3 py-1 rounded-lg hover:opacity-90"
+                      style={{ backgroundColor: "#2A3964" }}
                     >
                       Activar
                     </button>
                     <button
                       onClick={() => eliminar(g.id_gestion)}
-                      className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700"
+                      className="text-white px-3 py-1 rounded-lg hover:opacity-90"
+                      style={{ backgroundColor: "#880000" }}
                     >
                       Eliminar
                     </button>
@@ -103,7 +107,7 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
               className="border rounded-lg p-3 shadow-sm bg-gray-50"
             >
               <div className="flex justify-between">
-                <span className="font-semibold text-blue-700">
+                <span className="font-semibold" style={{ color: "#2A3964" }}>
                   {g.anio} / Semestre {g.semestre}
                 </span>
                 <span
@@ -121,13 +125,15 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
               <div className="flex gap-2 mt-3 justify-end">
                 <button
                   onClick={() => activar(g.id_gestion)}
-                  className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs hover:bg-blue-700"
+                  className="text-white px-3 py-1 rounded-lg text-xs hover:opacity-90"
+                  style={{ backgroundColor: "#2A3964" }}
                 >
                   Activar
                 </button>
                 <button
                   onClick={() => eliminar(g.id_gestion)}
-                  className="bg-red-600 text-white px-3 py-1 rounded-lg text-xs hover:bg-red-700"
+                  className="text-white px-3 py-1 rounded-lg text-xs hover:opacity-90"
+                  style={{ backgroundColor: "#880000" }}
                 >
                   Eliminar
                 </button>

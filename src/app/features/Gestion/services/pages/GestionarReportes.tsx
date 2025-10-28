@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import GestionForm from "../../../app/components/common/GestionForm";
-import GestionTable from "../../../app/components/common/GestionTable";
-import Header from "../../components/common/Header";
-import Footer from "../../components/common/Footer";
+import GestionForm from "../../..//../../app/components/common/GestionForm";
+import GestionTable from "../../..//../../app/components/common/GestionTable";
+import Header from "../../../../components/common/Header";
+import Footer from "../../../../components/common/Footer";
 
 export default function GestionPage() {
   const [refresh, setRefresh] = useState(false);
