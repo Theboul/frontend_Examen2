@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "../../../../../../public/assets/image.jpg"; 
 import Header from "../../../../components/common/Header";
 import Footer from "../../../../components/common/Footer";
 
@@ -78,7 +77,7 @@ export default function Login() {
          {/* Imagen */}
        <div className="sm:w-1/2 w-full flex justify-center">
         <img
-         src={logo}
+         src="/assets/image.jpg"
           alt="Logo"
            className="w-full max-w-sm sm:max-w-md object-contain rounded-lg"
         />

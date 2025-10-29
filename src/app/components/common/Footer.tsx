@@ -6,7 +6,7 @@ interface FooterProps {
   logoSrc?: string;
 }
 
-const Footer: React.FC<FooterProps> = ({ logoSrc = "../../../../public/assets/1.png" }) => {
+const Footer: React.FC<FooterProps> = ({ logoSrc = "/assets/1.png" }) => {
 
   return (
     <footer className="w-full bg-[#880000]/100 backdrop-blur-md border-t border-red-200 flex flex-col sm:flex-row items-center justify-between px-8 sm:px-8 py-22 shadow-sm gap-4 sm:gap-0">

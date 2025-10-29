@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "../../../../components/common/Header";
 import Footer from "../../../../components/common/Footer";
 import Banner from "../../../../components/banner";
 
 export default function GestionPage() {
-  const [refresh, setRefresh] = useState(false);
-
   return (
     <div className="min-h-screen w-full bg-gray-50 flex flex-col">
       {/* HEADER */}
@@ -16,7 +13,7 @@ export default function GestionPage() {
       <Banner
         title="Bienvenido a la Gestión FICCT"
         subtitle=""
-        imageSrc="../../../../../../public/assets/ban1.jpg"
+        imageSrc="/assets/ban1.jpg"
         ctaText=""
         ctaLink=""
       />
@@ -138,7 +135,7 @@ export default function GestionPage() {
         <Banner
           title=""
           subtitle=""
-          imageSrc="../../../../../../public/assets/modulo.jpg"
+          imageSrc="/assets/modulo.jpg"
           ctaText=""
           ctaLink=""
         />

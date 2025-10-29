@@ -1,6 +1,11 @@
 module.exports = {
   plugins: {
-    '@tailwindcss/postcss': {},
+    '@tailwindcss/postcss': {
+      // Desactiva las advertencias de clases canónicas
+      lint: {
+        suggestCanonicalClasses: false,
+      }
+    },
     autoprefixer: {},
   },
 }
