@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import GestionForm from "../../../../components/common/GestionForm";
-import GestionTable from "../../../../components/common/GestionTable";
+import GestionForm from "../../../../components/common/FormDocentes";
+import GestionTable from "../../../../components/common/TableDocentes";
 import Header from "../../../../components/common/Header";
 import Footer from "../../../../components/common/Footer";
 
@@ -22,7 +22,7 @@ export default function GestionPage() {
       >
         {/* TÍTULO */}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#2A3964] mb-6 border-b-4 border-[#880000] pb-2 text-center sm:text-left">
-          Gestión de Gestiones Académicas
+          Gestión de Docentes
         </h1>
 
         {/* FORMULARIO */}

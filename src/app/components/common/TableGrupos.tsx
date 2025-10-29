@@ -54,7 +54,7 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
         className="font-semibold mb-4 text-center sm:text-left text-lg sm:text-xl"
         style={{ color: "#2A3964" }}
       >
-        Gestiones Registradas
+        Grupos Registrados
       </h2>
 
       {/* 🌐 Tabla única, adaptable y con header sticky */}
@@ -70,12 +70,12 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
             style={{ backgroundColor: "#2A3964", color: "#ffffff" }}
           >
             <tr>
-              <th className="py-2 px-3 whitespace-nowrap">Año</th>
-              <th className="whitespace-nowrap">Semestre</th>
-              <th className="whitespace-nowrap">Inicio</th>
-              <th className="whitespace-nowrap">Fin</th>
+              <th className="py-2 px-3 whitespace-nowrap">ID Grupo</th>
+              <th className="whitespace-nowrap">ID Materia</th>
+              <th className="whitespace-nowrap">Nombre</th>
+              <th className="whitespace-nowrap">Descripción</th>
               <th className="whitespace-nowrap">Activo</th>
-              <th className="whitespace-nowrap">Acciones</th>
+              <th className="whitespace-nowrap">Cupos</th>
             </tr>
           </thead>
 
@@ -119,7 +119,7 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
             ) : (
               <tr>
                 <td colSpan={6} className="py-3 text-gray-500">
-                  No hay gestiones registradas
+                  No hay grupos registrados
                 </td>
               </tr>
             )}

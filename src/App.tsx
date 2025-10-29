@@ -13,7 +13,7 @@ import GestionarHorarios from './app/features/Gestion/services/pages/GestionarHo
 import GestionarMaterias from './app/features/Gestion/services/pages/GestionarMaterias';  
 import GestionarReportes from './app/features/Gestion/services/pages/GestionarReportes';
 import Login from './app/features/Gestion/services/auth/Login';
-
+import TipoAula from './app/features/Gestion/services/pages/TipoAula';
 
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
         <Route path="/horarios" element={<GestionarHorarios />} />
         <Route path="/materias" element={<GestionarMaterias />} />
         <Route path="/reportes" element={<GestionarReportes />} />
+        <Route path="/tipo-aula" element={<TipoAula />} />
       </Routes>
     </Router>
   );

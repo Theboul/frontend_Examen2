@@ -54,7 +54,7 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
         className="font-semibold mb-4 text-center sm:text-left text-lg sm:text-xl"
         style={{ color: "#2A3964" }}
       >
-        Gestiones Registradas
+        Docentes Registrados
       </h2>
 
       {/* 🌐 Tabla única, adaptable y con header sticky */}
@@ -70,12 +70,13 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
             style={{ backgroundColor: "#2A3964", color: "#ffffff" }}
           >
             <tr>
-              <th className="py-2 px-3 whitespace-nowrap">Año</th>
-              <th className="whitespace-nowrap">Semestre</th>
-              <th className="whitespace-nowrap">Inicio</th>
-              <th className="whitespace-nowrap">Fin</th>
+              <th className="py-2 px-3 whitespace-nowrap">Codigo Docente</th>
+              <th className="whitespace-nowrap">ID Usuario</th>
+              <th className="whitespace-nowrap">Tipo de Contrato</th>
+              <th className="whitespace-nowrap">Titulo</th>
+              <th className="whitespace-nowrap">Especialidad</th>
+              <th className="whitespace-nowrap">Grado Academico</th>
               <th className="whitespace-nowrap">Activo</th>
-              <th className="whitespace-nowrap">Acciones</th>
             </tr>
           </thead>
 
@@ -119,7 +120,7 @@ export default function GestionTable({ refresh }: { refresh: boolean }) {
             ) : (
               <tr>
                 <td colSpan={6} className="py-3 text-gray-500">
-                  No hay gestiones registradas
+                  No hay docentes registrados
                 </td>
               </tr>
             )}
