@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import GestionForm from "../../..//../../app/components/common/GestionForm";
-import GestionTable from "../../..//../../app/components/common/GestionTable";
+import GestionForm from "../../components/GestionForm";
+import GestionTable from "../../components/GestionTable";
 import Header from "../../../../components/common/Header";
 import Footer from "../../../../components/common/Footer";
 

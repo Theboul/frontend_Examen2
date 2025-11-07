@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import GestionForm from "../../../../../app/components/common/FormGrupos";
-import GestionTable from "../../../../../app/components/common/TableGrupos";
-import Header from "../../../../components/common/Header";
-import Footer from "../../../../components/common/Footer";
+// 💡 CORRECCIÓN DE RUTAS/NOMBRES DE COMPONENTES
+import FormMaterias from "../../Materia/components/FormMaterias";
+import TableMaterias from "../../Materia/components/TableMaterias";
+import Header from "../../../components/common/Header";
+import Footer from "../../../components/common/Footer";
 
 export default function GestionPage() {
   const [refresh, setRefresh] = useState(false);
+  const handleSuccess = () => setRefresh(!refresh); // Función unificada para refrescar
 
   return (
     <div className="min-h-screen w-full bg-white flex flex-col">
@@ -22,7 +24,7 @@ export default function GestionPage() {
       >
         {/* TÍTULO */}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#2A3964] mb-6 border-b-4 border-[#880000] pb-2 text-center sm:text-left">
-          Gestión de Grupos
+          Gestión de Materias
         </h1>
 
         {/* FORMULARIO */}
@@ -31,7 +33,8 @@ export default function GestionPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <GestionForm onCreated={() => setRefresh(!refresh)} />
+          {/* Usamos FormMaterias para la creación */}
+          <FormMaterias onSuccess={handleSuccess} />
         </motion.div>
 
         {/* TABLA */}
@@ -41,7 +44,7 @@ export default function GestionPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <GestionTable refresh={refresh} />
+          <TableMaterias refresh={refresh} />
         </motion.div>
       </motion.main>
 

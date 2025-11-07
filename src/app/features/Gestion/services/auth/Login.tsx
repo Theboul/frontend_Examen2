@@ -1,15 +1,70 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../../../../../service/authService";
 import Header from "../../../../components/common/Header";
 import Footer from "../../../../components/common/Footer";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const [username, setUsername] = useState(""); // Cambiado de email a username
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Email: ${email}\nPassword: ${password}`);
-    // Lógica de login real aquí
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Llamar al servicio de autenticación con username
+      const response = await authService.login({ 
+        email: username, // El backend espera "username" pero el servicio usa "email"
+        password 
+      });
+      
+      console.log('✅ Login exitoso:', response);
+      console.log('👤 Usuario:', response.user);
+      console.log('🔑 Token:', response.token);
+      
+      // Verificar que el usuario exista en la respuesta
+      if (!response.user) {
+        throw new Error('No se recibió información del usuario');
+      }
+      
+      // Verificar si es primer ingreso (puede venir en response o response.user)
+      const primerIngreso = response.primer_ingreso || response.user.primer_ingreso;
+      
+      if (primerIngreso) {
+        alert('Es tu primer ingreso. Debes cambiar tu contraseña.');
+        // TODO: Redirigir a página de cambio de contraseña
+        navigate('/dashboard');
+      } else {
+        // Redirigir al dashboard
+        alert(`¡Bienvenido ${response.user.usuario}!`);
+        navigate('/dashboard');
+      }
+      
+    } catch (err: any) {
+      console.error('❌ Error en login:', err);
+      console.log('📋 Detalles completos del error:', JSON.stringify(err, null, 2));
+      
+      // Manejar diferentes tipos de errores
+      if (err.errors) {
+        // Errores de validación de Laravel
+        const errores = Object.entries(err.errors).map(([campo, mensajes]: [string, any]) => {
+          const msgs = Array.isArray(mensajes) ? mensajes : [mensajes];
+          return `${campo}: ${msgs.join(', ')}`;
+        });
+        setError(errores.join('\n'));
+      } else if (err.message) {
+        setError(err.message);
+      } else {
+        setError('Error al iniciar sesión. Verifica tus credenciales.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
  return (
@@ -22,18 +77,27 @@ export default function Login() {
           <h1 className="text-2xl font-semibold text-[#880000] mb-6 text-center">
             Iniciar Sesión
           </h1>
+
+          {/* Mensaje de error */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+              ❌ {error}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
-              <label htmlFor="email" className="block mb-1 text-gray-700">
-                Correo electrónico
+              <label htmlFor="username" className="block mb-1 text-gray-700">
+                Usuario o Correo
               </label>
               <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 rounded-lg border border-[#880000] bg-[#880000] text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-[#2A3964] focus:border-[#2A3964]"
-                placeholder="algo@gmail.com"
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                disabled={loading}
+                className="w-full p-2 rounded-lg border border-[#880000] bg-[#880000] text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-[#2A3964] focus:border-[#2A3964] disabled:opacity-50"
+                placeholder="tu_usuario o email@ejemplo.com"
                 required
               />
             </div>
@@ -47,7 +111,8 @@ export default function Login() {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 rounded-lg border border-[#880000] bg-[#880000] text-blue placeholder-blue-00 focus:outline-none focus:ring-2 focus:ring-[#2A3964] focus:border-[#2A3964]"
+                disabled={loading}
+                className="w-full p-2 rounded-lg border border-[#880000] bg-[#880000] text-blue placeholder-blue-00 focus:outline-none focus:ring-2 focus:ring-[#2A3964] focus:border-[#2A3964] disabled:opacity-50"
                 placeholder="******"
                 required
               />
@@ -60,9 +125,10 @@ export default function Login() {
 
             <button
               type="submit"
-              className="mt-4 text-[#00012e] w-full bg-[#2A3964] hover:bg-[#1f2a4b] text-red py-2 rounded-lg transition"
+              disabled={loading}
+              className="mt-4 text-white w-full bg-[#2A3964] hover:bg-[#1f2a4b] py-2 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Iniciar
+              {loading ? '⏳ Iniciando sesión...' : 'Iniciar Sesión'}
             </button>
           </form>
 

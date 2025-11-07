@@ -1,12 +1,29 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import GestionForm from "../../../app/components/common/GestionForm";
-import GestionTable from "../../../app/components/common/GestionTable";
+import GestionForm from "./components/GestionForm";
+import GestionTable from "./components/GestionTable";
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
+import type { Gestion } from "./services/gestionService";
 
 export default function GestionPage() {
   const [refresh, setRefresh] = useState(false);
+  const [gestionToEdit, setGestionToEdit] = useState<Gestion | null>(null);
+
+  const handleEdit = (gestion: Gestion) => {
+    setGestionToEdit(gestion);
+    // Scroll suave hacia el formulario
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCreatedOrUpdated = () => {
+    setRefresh(!refresh);
+    setGestionToEdit(null);
+  };
+
+  const handleCancelEdit = () => {
+    setGestionToEdit(null);
+  };
 
   return (
     <div className="min-h-screen w-full bg-white flex flex-col">
@@ -31,7 +48,11 @@ export default function GestionPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <GestionForm onCreated={() => setRefresh(!refresh)} />
+          <GestionForm 
+            onCreated={handleCreatedOrUpdated} 
+            gestionToEdit={gestionToEdit}
+            onCancelEdit={handleCancelEdit}
+          />
         </motion.div>
 
         {/* TABLA */}
@@ -41,7 +62,7 @@ export default function GestionPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <GestionTable refresh={refresh} />
+          <GestionTable refresh={refresh} onEdit={handleEdit} />
         </motion.div>
       </motion.main>
 

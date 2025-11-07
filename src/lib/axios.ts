@@ -1,12 +1,17 @@
 import axios from 'axios';
 
-// Configuración global de axios
+// URL base del backend
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+
+// Configuración global de axios para Sanctum
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api',
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
-  timeout: 10000, // 10 segundos
+  withCredentials: true, // Necesario para Sanctum con cookies
+  timeout: 15000, // 15 segundos
 });
 
 // Interceptor para requests

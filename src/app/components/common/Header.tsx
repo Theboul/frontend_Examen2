@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { MdPersonOutline, MdMenu } from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import { MdPersonOutline, MdMenu, MdLogout } from "react-icons/md";
 import Sidebar from "../common/Sidebara";
+import { authService, type User } from "../../../service/authService";
 
 interface HeaderProps {
   logoSrc?: string;
@@ -10,6 +11,31 @@ const Header: React.FC<HeaderProps> = ({
   logoSrc = "/assets/1.png",
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  // Verificar si hay usuario logueado
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error al parsear usuario:', error);
+      }
+    }
+  }, []);
+
+  // Función para cerrar sesión
+  const handleLogout = async () => {
+    if (window.confirm('¿Estás seguro que deseas cerrar sesión?')) {
+      try {
+        await authService.logout();
+        // El servicio ya redirige a /login
+      } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+      }
+    }
+  };
 
   return (
     <>
@@ -33,19 +59,37 @@ const Header: React.FC<HeaderProps> = ({
           />
         </div>
 
-        {/* Botón de iniciar sesión */}
+        {/* Botón de iniciar sesión / cerrar sesión */}
         <div className="flex items-center gap-3">
-          <a
-            href="/login"
-            className="flex items-center gap-1 bg-white border border-[#750c09] text-[#ffffff] px-3 py-1 rounded-full text-sm font-medium hover:bg-[#F4AFCC]/20 transition"
-          >
-            <MdPersonOutline size={18} />
-            Iniciar sesión
-          </a>
+          {user ? (
+            // Usuario autenticado - Mostrar nombre y botón de cerrar sesión
+            <div className="flex items-center gap-3">
+              <span className="text-white text-sm font-medium hidden sm:block">
+                {user.usuario}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1 bg-white border border-[#750c09] text-[#750c09] px-3 py-1 rounded-full text-sm font-medium hover:bg-red-50 transition"
+                title="Cerrar sesión"
+              >
+                <MdLogout size={18} />
+                <span className="hidden sm:inline">Cerrar sesión</span>
+              </button>
+            </div>
+          ) : (
+            // Usuario no autenticado - Mostrar botón de iniciar sesión
+            <a
+              href="/login"
+              className="flex items-center gap-1 bg-white border border-[#750c09] text-[#750c09] px-3 py-1 rounded-full text-sm font-medium hover:bg-[#F4AFCC]/20 transition"
+            >
+              <MdPersonOutline size={18} />
+              Iniciar sesión
+            </a>
+          )}
         </div>
       </header>
 
-      {/* 🔹 Franja azul delgadita debajo del header */}
+      {/* Franja azul delgadita debajo del header */}
       <div className="w-full h-[20px] bg-[#2A3964]" />
 
       {/* Sidebar */}

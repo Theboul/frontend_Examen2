@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // ✅ Import necesario
-import GestionForm from "../../../../../app/components/common/FormAulas";
-import GestionTable from "../../../../../app/components/common/TableAulas";
-import Header from "../../../../components/common/Header";
-import Footer from "../../../../components/common/Footer";
+import { useNavigate } from "react-router-dom";
+import FormAulas from "../../Aula/components/FormAulas";
+import TableAulas from "../../Aula/components/TableAulas";
+import Header from "../../../components/common/Header";
+import Footer from "../../../components/common/Footer";
 
 export default function GestionPage() {
   const [refresh, setRefresh] = useState(false);
-  const navigate = useNavigate(); // ✅ Hook para redirigir
+  const navigate = useNavigate();
+
+  // Función para recargar la tabla tras cualquier acción (Crear, Editar, Eliminar)
+  const handleSuccess = () => setRefresh(prev => !prev);
 
   return (
     <div className="min-h-screen w-full bg-white flex flex-col">
@@ -26,19 +29,19 @@ export default function GestionPage() {
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#2A3964] mb-6 border-b-4 border-[#880000] pb-2 text-center sm:text-left">
           Gestión de Aulas
         </h1>
-<motion.div
-  className="flex justify-center sm:justify-end mb-6"
-  initial={{ opacity: 10, y: 10 }}
-  animate={{ opacity: 90, y: 10 }}
-  transition={{ duration: 0.4, delay: 0.2 }}
->
-  <motion.button
-    onClick={() => navigate("/tipos-aulas")}
-    className=" text-white/900  font-medium px-5 py-2 rounded-lg shadow-blue-950 hover:bg-blue-200 shadow-blue-950transition-all duration-300"
-  >
-    Tipos de Aulas
-  </motion.button>
-</motion.div>
+        <motion.div
+          className="flex justify-center sm:justify-end mb-6"
+          initial={{ opacity: 10, y: 10 }}
+          animate={{ opacity: 90, y: 10 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <motion.button
+            onClick={() => navigate("/tipos-aulas")}
+            className="bg-[#2A3964] text-white font-medium px-5 py-2 rounded-lg shadow-md hover:bg-blue-800 transition-all duration-300"
+          >
+            Tipos de Aulas
+          </motion.button>
+        </motion.div>
 
 
 
@@ -48,7 +51,8 @@ export default function GestionPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <GestionForm onCreated={() => setRefresh(!refresh)} />
+          {/* Usamos onSuccess en lugar de onCreated */}
+          <FormAulas onSuccess={handleSuccess} />
         </motion.div>
 
         {/* TABLA */}
@@ -58,7 +62,7 @@ export default function GestionPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <GestionTable refresh={refresh} />
+          <TableAulas refresh={refresh} />
         </motion.div>
       </motion.main>
 
