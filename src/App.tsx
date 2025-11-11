@@ -13,6 +13,16 @@ import GestionarReportes from './app/features/Gestion/services/pages/GestionarRe
 import Login from './app/features/Gestion/services/auth/Login';
 import TipoAula from './app/features/Aula/pages/TipoAula';
 import GestionTest from './app/components/test/GestionTest';
+import Bitacora from "./app/features/Sistema/pages/Bitacora";
+import CambiarPasswordPage from "./app/features/Auth/pages/CambiarPasswordPage";
+import CargaMasivaUsuarios from "./app/features/Usuarios/pages/CargaMasivaUsuarios";
+import AsignarDocentePage from "./app/features/Horario/pages/AsignarDocentePage";
+import AsignarHorarioManualPage from "./app/features/Horario/pages/AsignarHorarioManualPage";
+import AsignarHorarioAutomaticoPage from "./app/features/Horario/pages/AsignarHorarioAutomaticoPage";
+import ConsultarDisponibilidadAulasPage from "./app/features/Aula/pages/ConsultarDisponibilidadAulas";
+import VisualizarHorariosSemanales from "./app/features/Horario/pages/VisualizarHorariosSemanales";
+import PublicarHorariosPage from "./app/features/Horario/pages/PublicarHorariosPage";
+import CargaHorariaDocentePage from "./app/features/Horario/pages/CargaHorariaDocentePage";
 
 
 function App() {
@@ -33,6 +43,17 @@ function App() {
         <Route path="/reportes" element={<GestionarReportes />} />
         <Route path="/tipos-aulas" element={<TipoAula/>} />
         <Route path="/test/gestiones" element={<GestionTest />} />
+        <Route path="/bitacora" element={<Bitacora />} />
+        <Route path="/cambiar-password" element={<CambiarPasswordPage />} />
+        <Route path="/carga-masiva-usuarios" element={<CargaMasivaUsuarios />} />
+        <Route path="/asignar-docente" element={<AsignarDocentePage />} />
+        <Route path="/asignar-horario-manual" element={<AsignarHorarioManualPage />} />
+        <Route path="/asignar-horario-automatico" element={<AsignarHorarioAutomaticoPage />} />
+        <Route path="/consultar-disponibilidad-aulas" element={<ConsultarDisponibilidadAulasPage />} />
+        <Route path="/visualizar-horarios-semanales" element={<VisualizarHorariosSemanales />} />
+        <Route path="/publicar-horarios" element={<PublicarHorariosPage />} />
+        <Route path="/carga-horaria-docente" element={<CargaHorariaDocentePage />} />
+
       </Routes>
     </Router>
   );

@@ -11,7 +11,7 @@ export const api = axios.create({
     'Accept': 'application/json',
   },
   withCredentials: true, // Necesario para Sanctum con cookies
-  timeout: 15000, // 15 segundos
+  timeout: 30000, 
 });
 
 // Interceptor para requests
