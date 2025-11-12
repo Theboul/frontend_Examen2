@@ -1,5 +1,3 @@
-// src/app/pages/GestionTipoAulaPage.tsx (O la ruta que uses para las páginas)
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "../../../components/common/Header";
