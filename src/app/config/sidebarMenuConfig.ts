@@ -28,6 +28,7 @@ export const sidebarMenu = {
     { label: "Aulas", href: "/aulas", icon: MeetingRoomIcon }, // CU5: Gestionar Aulas
     { label: "Usuarios / Carga Masiva", href: "/carga-masiva-usuarios", icon: AssignmentIcon }, // CU1: Cargar Usuarios Masivamente
     { label: "Bitácora", href: "/bitacora", icon: HistoryIcon }, // CU21: Gestionar Bitácora
+    { label: "Reportes", href: "/reportes/asistencia", icon: AssignmentIcon }, // CU11: Generar Reportes de Asistencia
   ],
 
   // ==============================
@@ -45,7 +46,7 @@ export const sidebarMenu = {
     { label: "Disponibilidad de Aulas", href: "/consultar-disponibilidad-aulas", icon: MeetingRoomIcon }, // CU8: Consultar Disponibilidad de Aulas
     { label: "Visualizar Horarios", href: "/visualizar-horarios-semanales", icon: BarChartIcon }, // CU12: Visualizar Horarios Semanales
     { label: "Publicar Horarios", href: "/publicar-horarios", icon: CheckCircleIcon }, // CU17: Publicar Horarios
-    { label: "Reportes", href: "/reportes", icon: AssignmentIcon }, // CU11: Generar Reportes de Asistencia
+    { label: "Reportes", href: "/reportes/asistencia", icon: AssignmentIcon }, // CU11: Generar Reportes de Asistencia
   ],
 
   // ==============================
@@ -55,7 +56,7 @@ export const sidebarMenu = {
     { label: "Dashboard", href: "/dashboard", icon: DashboardIcon }, // Vista general
     { label: "Visualizar Horarios", href: "/visualizar-horarios-semanales", icon: AccessTimeIcon }, // CU12: Visualizar Horarios Semanales
     { label: "Publicar Horarios", href: "/publicar-horarios", icon: CheckCircleIcon }, // CU17: Publicar Horarios
-    { label: "Reportes de Asistencia", href: "/reportes", icon: BarChartIcon }, // CU11: Generar Reportes de Asistencia
+    { label: "Reportes de Asistencia", href: "/reportes/asistencia", icon: BarChartIcon }, // CU11: Generar Reportes de Asistencia
     { label: "Bitácora", href: "/bitacora", icon: HistoryIcon }, // CU21: Gestionar Bitácora
   ],
 
@@ -65,7 +66,7 @@ export const sidebarMenu = {
   Docente: [
     { label: "Mi Horario", href: "/docente/mi-horario", icon: AccessTimeIcon }, // CU10: Consultar Carga Horaria Personal
     { label: "Registrar Asistencia", href: "/docente/asistencia", icon: AssignmentIcon }, // CU9: Registrar Asistencia Docente
-    { label: "Justificar Ausencias", href: "/docente/justificaciones", icon: FilePresentIcon }, // CU20: Justificar Ausencia
+    { label: "Justificar Ausencias", href: "/docente/asistencia", icon: FilePresentIcon }, // CU20: Justificar Ausencia
     { label: "Perfil / Contraseña", href: "/cambiar-password", icon: PersonIcon }, // CU14: Cambiar Contraseña en Primer Ingreso
   ],
 };

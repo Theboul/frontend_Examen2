@@ -23,6 +23,9 @@ import ConsultarDisponibilidadAulasPage from "./app/features/Aula/pages/Consulta
 import VisualizarHorariosSemanales from "./app/features/Horario/pages/VisualizarHorariosSemanales";
 import PublicarHorariosPage from "./app/features/Horario/pages/PublicarHorariosPage";
 import CargaHorariaDocentePage from "./app/features/Horario/pages/CargaHorariaDocentePage";
+import RegistrarYJustificarAsistencia from "./app/features/Asistencia/pages/RegistrarYJustificarAsistencia";
+import MiHorarioDocenteDemo from "./app/features/Docente/pages/miHorario";
+import GenerarReportesAsistenciaPage from "./app/features/Reportes/pages/GenerarReportesAsistenciaPage";
 
 
 function App() {
@@ -53,7 +56,9 @@ function App() {
         <Route path="/visualizar-horarios-semanales" element={<VisualizarHorariosSemanales />} />
         <Route path="/publicar-horarios" element={<PublicarHorariosPage />} />
         <Route path="/carga-horaria-docente" element={<CargaHorariaDocentePage />} />
-
+        <Route path="/docente/asistencia" element={<RegistrarYJustificarAsistencia />} />
+        <Route path="/docente/mi-horario" element={<MiHorarioDocenteDemo />} />
+        <Route path="/reportes/asistencia" element={<GenerarReportesAsistenciaPage />} />
       </Routes>
     </Router>
   );
