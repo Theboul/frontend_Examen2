@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { type BitacoraFilters } from '../services/bitacoraService';
+import { bitacoraService } from '../services/bitacoraService';
 
 interface BitacoraFiltrosProps {
   onFilter: (filters: BitacoraFilters) => void;
@@ -9,6 +10,7 @@ interface BitacoraFiltrosProps {
 export default function BitacoraFiltros({ onFilter, loading }: BitacoraFiltrosProps) {
   const [filters, setFilters] = useState<BitacoraFilters>({});
   const [showFilters, setShowFilters] = useState(false);
+  const [exportLoading, setExportLoading] = useState(false);
 
   const handleFilterChange = (key: keyof BitacoraFilters, value: string) => {
     const newFilters = { ...filters };
@@ -22,6 +24,21 @@ export default function BitacoraFiltros({ onFilter, loading }: BitacoraFiltrosPr
     setFilters({});
     onFilter({});
   };
+
+  const handleExport = async (formato: 'pdf' | 'excel' | 'word') => {
+    setExportLoading(true);
+    try {
+      // Usamos los filtros actuales que el usuario ha seleccionado
+      await bitacoraService.exportReport(formato, filters);
+    } catch (error) {
+      console.error(`Error al exportar ${formato}:`, error);
+      // (Opcional) Mostrar un mensaje de error al usuario
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
+  const isLoading = loading || exportLoading;
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-3 sm:p-4 mb-6">
@@ -93,6 +110,30 @@ export default function BitacoraFiltros({ onFilter, loading }: BitacoraFiltrosPr
           >
             Limpiar
           </button>
+
+          <div className="ml-auto flex flex-wrap gap-2">
+            <button
+              onClick={() => handleExport('pdf')}
+              disabled={isLoading}
+              className="px-4 py-2 text-sm sm:text-base bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50"
+            >
+              {exportLoading ? '...' : 'Exportar PDF'}
+            </button>
+            <button
+              onClick={() => handleExport('excel')}
+              disabled={isLoading}
+              className="px-4 py-2 text-sm sm:text-base bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
+            >
+              {exportLoading ? '...' : 'Exportar Excel'}
+            </button>
+            <button
+              onClick={() => handleExport('word')}
+              disabled={isLoading}
+              className="px-4 py-2 text-sm sm:text-base bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            >
+              {exportLoading ? '...' : 'Exportar Word'}
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -6,7 +6,7 @@ import Footer from "../../../../components/common/Footer";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(""); // Cambiado de email a username
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -17,41 +17,40 @@ export default function Login() {
     setError(null);
 
     try {
-      // Llamar al servicio de autenticación con username
+      
       const response = await authService.login({ 
-        email: username, // El backend espera "username" pero el servicio usa "email"
+        email: username, 
         password 
       });
       
       console.log('✅ Login exitoso:', response);
-      console.log('👤 Usuario:', response.user);
-      console.log('🔑 Token:', response.token);
       
-      // Verificar que el usuario exista en la respuesta
-      if (!response.user) {
-        throw new Error('No se recibió información del usuario');
+      if (!response.user || !response.token) {
+        throw new Error('Respuesta de login inválida. No se recibió token o usuario.');
       }
       
-      // Verificar si es primer ingreso (puede venir en response o response.user)
-      const primerIngreso = response.primer_ingreso || response.user.primer_ingreso;
+
+      localStorage.setItem('auth_token', response.token); 
+      // Tu 'CambiarPasswordPage' busca 'user'
+      localStorage.setItem('user', JSON.stringify(response.user)); 
+
+      const primerIngreso = response.primer_ingreso;
       
       if (primerIngreso) {
-        alert('Es tu primer ingreso. Debes cambiar tu contraseña.');
-        // TODO: Redirigir a página de cambio de contraseña
-        navigate('/dashboard');
+        console.log('🔑 Primer ingreso detectado. Redirigiendo a /cambiar-password...');
+        // Redirigir a cambiar password
+        navigate('/cambiar-password');
       } else {
+        console.log('👤 Usuario regular. Redirigiendo a /dashboard...');
         // Redirigir al dashboard
-        alert(`¡Bienvenido ${response.user.usuario}!`);
         navigate('/dashboard');
       }
       
     } catch (err: any) {
       console.error('❌ Error en login:', err);
-      console.log('📋 Detalles completos del error:', JSON.stringify(err, null, 2));
       
-      // Manejar diferentes tipos de errores
+      // (Tu excelente manejo de errores se queda igual)
       if (err.errors) {
-        // Errores de validación de Laravel
         const errores = Object.entries(err.errors).map(([campo, mensajes]: [string, any]) => {
           const msgs = Array.isArray(mensajes) ? mensajes : [mensajes];
           return `${campo}: ${msgs.join(', ')}`;

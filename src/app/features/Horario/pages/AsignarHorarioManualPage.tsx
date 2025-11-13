@@ -66,7 +66,7 @@ export default function AsignarHorarioManualPage() {
     setMensaje({ tipo: null, texto: "" });
 
     try {
-      const token = localStorage.getItem("token");
+      //const token = localStorage.getItem("token");
       const response = await horarioService.create(formData);
 
       if (response.data.success) {

@@ -1,14 +1,14 @@
-import axios from "axios";
+
+import { api } from '../../../../lib/axios';
 
 /**
  * Cambiar contraseña en primer ingreso o manualmente.
- * Usa el token almacenado en localStorage.
+ * Usa la instancia global 'api', que ya incluye el interceptor de token.
  */
 export const changePasswordService = {
   /**
    * Envía la solicitud al backend Laravel para cambiar contraseña.
-   * 
-   * @param id_usuario ID del usuario autenticado
+   * * @param id_usuario ID del usuario autenticado
    * @param password_actual Contraseña actual del usuario
    * @param password_nueva Nueva contraseña
    * @param password_nueva_confirmation Confirmación de la nueva contraseña
@@ -25,29 +25,25 @@ export const changePasswordService = {
     password_nueva_confirmation: string;
   }) {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("Sesión no válida. Inicie sesión nuevamente.");
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/cambiar-password`,
+      // El interceptor se encargará del token y la baseURL.
+      const response = await api.post(
+        '/auth/cambiar-password', // Solo la ruta relativa
         {
           id_usuario,
           password_actual,
           password_nueva,
           password_nueva_confirmation,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-          timeout: 15000,
         }
       );
 
-      return response.data;
+      return response.data; // Devuelve el { success: true, ... } del backend
+      
     } catch (error: any) {
-      console.error("Error al cambiar contraseña:", error);
+      console.error("Error en changePasswordService:", error);
+      
+      // El interceptor global de api.js ya maneja el 401 (logout),
+      // pero aquí reenviamos el mensaje de error específico (ej. "Contraseña actual incorrecta")
       throw new Error(
         error.response?.data?.message || "No se pudo cambiar la contraseña."
       );

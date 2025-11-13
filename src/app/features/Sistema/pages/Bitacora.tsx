@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useBitacora } from "../Hooks/useBiatacora";
 import BitacoraFiltros from "../components/BitacoraFiltros";
 import Paginacion from "../components/Paginacion";

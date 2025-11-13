@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { 
   bitacoraService, 
   type Bitacora, 
@@ -12,7 +12,7 @@ import {
  */
 export const useBitacora = () => {
   const [logs, setLogs] = useState<Bitacora[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<PaginationInfo>({
     currentPage: 1,
@@ -30,8 +30,8 @@ export const useBitacora = () => {
       setError(null);
 
       try {
+        
         const response = await bitacoraService.getBitacoraLogs(page, pageSize, filters);
-
         // Guardar registros y datos de paginación
         setLogs(response.data);
         setPagination(response.pagination);
@@ -50,8 +50,17 @@ export const useBitacora = () => {
   );
 
   /**
-   * Simulación de estadísticas básicas (ya que el backend no las expone aún)
-   * 👉 Esto evita errores en el frontend.
+   * Efecto para cargar los logs iniciales cuando el hook se usa por primera vez.
+   */
+  useEffect(() => {
+    console.log("useBitacora: Montado. Cargando logs iniciales...");
+    loadLogs(1, 10, {}); // Carga la página 1 con 10 items sin filtros
+  }, [loadLogs]); // 'loadLogs' está envuelto en useCallback, por lo que esto es seguro
+  // ==========================================================
+
+  /**
+   * Simulación de estadísticas básicas
+   * Esto evita errores en el frontend.
    */
   const [estadisticas, setEstadisticas] = useState<any>({
     periodo: 'N/A',
